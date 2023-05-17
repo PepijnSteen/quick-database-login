@@ -96,14 +96,24 @@ class Change {
                 System.out.println("new password");
                 String newPassword = scanner.nextLine();
 
-                String sql = "UPDATE users SET password = ? WHERE username = ?";
+                System.out.println("repeat password");
+                String repeatPassword = scanner.nextLine();
 
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, newPassword);
-                preparedStatement.setString(2, currentUsername);
-                preparedStatement.execute();
-                breakloop = false;
-                break;
+                if (newPassword.equals(repeatPassword)) {
+
+                    String sql = "UPDATE users SET password = ? WHERE username = ?";
+
+                    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                    preparedStatement.setString(1, newPassword);
+                    preparedStatement.setString(2, currentUsername);
+                    preparedStatement.execute();
+                    breakloop = false;
+                    break;
+                }
+                else {
+                    breakloop = false;
+                    break;
+                }
 
             } catch (SQLException e) {
                 System.out.println("Error connecting to SQLite database");
@@ -127,11 +137,11 @@ class Change {
                 System.out.println("new email");
                 String newEmail = scanner.nextLine();
 
-                String sql = "UPDATE users SET email = ? WHERE username = ?";
+                String sql = "UPDATE users SET email = ? WHERE email = ?";
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, currentEmail);
-                preparedStatement.setString(2, newEmail);
+                preparedStatement.setString(1, newEmail);
+                preparedStatement.setString(2, currentEmail);
                 preparedStatement.execute();
                 breakloop = false;
                 break;

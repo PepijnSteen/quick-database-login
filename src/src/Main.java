@@ -5,8 +5,8 @@ public class Main {
         Login login = new Login();
 
         database.printAll();
-        //menu.menuText();
-        login.loginText();
+        menu.menuText();
+
 
         database.printAll();
     }
