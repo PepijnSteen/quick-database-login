@@ -15,7 +15,6 @@ class Add {
         System.out.println("Enter your email address");
         String email = scanner.nextLine();
 
-
         try {
             Connection connection = DriverManager.getConnection(jdbcURL);
             String sql = "INSERT INTO users(username, password, email) VALUES (?,?,?)";
@@ -52,79 +51,97 @@ class Change {
         }
     }
     public void changeUsername() {
-        try {
-            Connection connection = DriverManager.getConnection(jdbcURL);
+        boolean breakloop = true;
+        while (breakloop) {
+            try {
+                Connection connection = DriverManager.getConnection(jdbcURL);
 
 
-            Scanner scanner = new Scanner(System.in);
+                Scanner scanner = new Scanner(System.in);
 
-            System.out.println("old name");
-            String oldUsername = scanner.nextLine();
+                System.out.println("old name");
+                String oldUsername = scanner.nextLine();
 
-            System.out.println("new name");
-            String newUsername = scanner.nextLine();
+                System.out.println("new name");
+                String newUsername = scanner.nextLine();
 
-            String sql = "UPDATE users SET username = ? WHERE username = ? ";
+                String sql = "UPDATE users SET username = ? WHERE username = ? ";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, newUsername);
-            preparedStatement.setString(2, oldUsername);
-            preparedStatement.execute();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, newUsername);
+                preparedStatement.setString(2, oldUsername);
+                preparedStatement.execute();
+                breakloop = false;
+                break;
 
-
-        } catch (SQLException e) {
-            System.out.println("Error connecting to SQLite database");
-            e.printStackTrace();
+            } catch (SQLException e) {
+                System.out.println("Error connecting to SQLite database");
+                e.printStackTrace();
+                breakloop = false;
+                break;
+            }
         }
     }
 
     public void changePassword() {
-        try {
-            Connection connection = DriverManager.getConnection(jdbcURL);
-            Scanner scanner = new Scanner(System.in);
+        boolean breakloop = true;
+        while (breakloop) {
+            try {
+                Connection connection = DriverManager.getConnection(jdbcURL);
+                Scanner scanner = new Scanner(System.in);
 
-            System.out.println("current username:");
-            String currentUsername = scanner.nextLine();
+                System.out.println("current username:");
+                String currentUsername = scanner.nextLine();
 
-            System.out.println("new password");
-            String newPassword = scanner.nextLine();
+                System.out.println("new password");
+                String newPassword = scanner.nextLine();
 
-            String sql = "UPDATE users SET password = ? WHERE username = ?";
+                String sql = "UPDATE users SET password = ? WHERE username = ?";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, newPassword);
-            preparedStatement.setString(2, currentUsername);
-            preparedStatement.execute();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, newPassword);
+                preparedStatement.setString(2, currentUsername);
+                preparedStatement.execute();
+                breakloop = false;
+                break;
 
-
-        } catch (SQLException e) {
-            System.out.println("Error connecting to SQLite database");
-            e.printStackTrace();
+            } catch (SQLException e) {
+                System.out.println("Error connecting to SQLite database");
+                e.printStackTrace();
+                breakloop = false;
+                break;
+            }
         }
     }
 
     public void changeEmail() {
-        try {
-            Connection connection = DriverManager.getConnection(jdbcURL);
-            Scanner scanner = new Scanner(System.in);
+        boolean breakloop = true;
+        while (breakloop) {
+            try {
+                Connection connection = DriverManager.getConnection(jdbcURL);
+                Scanner scanner = new Scanner(System.in);
 
-            System.out.println("current email:");
-            String currentEmail = scanner.nextLine();
+                System.out.println("current email:");
+                String currentEmail = scanner.nextLine();
 
-            System.out.println("new email");
-            String newEmail = scanner.nextLine();
+                System.out.println("new email");
+                String newEmail = scanner.nextLine();
 
-            String sql = "UPDATE users SET email = ? WHERE username = ?";
+                String sql = "UPDATE users SET email = ? WHERE username = ?";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, currentEmail);
-            preparedStatement.setString(2, newEmail);
-            preparedStatement.execute();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, currentEmail);
+                preparedStatement.setString(2, newEmail);
+                preparedStatement.execute();
+                breakloop = false;
+                break;
 
-
-        } catch (SQLException e) {
-            System.out.println("Error connecting to SQLite database");
-            e.printStackTrace();
+            } catch (SQLException e) {
+                System.out.println("Error connecting to SQLite database");
+                e.printStackTrace();
+                breakloop = false;
+                break;
+            }
         }
     }
 }
